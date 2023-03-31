@@ -137,7 +137,7 @@ void SettingsConstraints::check(const Settings & current_settings, const Setting
         if (new_value != old_value)
         {
             if (old_value == SettingConstraintWritability::CONST)
-                throw Exception(ErrorCodes::SETTING_CONSTRAINT_VIOLATION, "Setting {} should not be changed", setting_name);
+                throw Exception(ErrorCodes::SETTING_CONSTRAINT_VIOLATION, "Setting {} must not be changed", setting_name);
         }
     }
 }
@@ -288,7 +288,7 @@ bool SettingsConstraints::Checker::check(SettingChange & change, const Field & n
     if (constraint.writability == SettingConstraintWritability::CONST)
     {
         if (reaction == THROW_ON_VIOLATION)
-            throw Exception(ErrorCodes::SETTING_CONSTRAINT_VIOLATION, "Setting {} should not be changed", setting_name);
+            throw Exception(ErrorCodes::SETTING_CONSTRAINT_VIOLATION, "Setting {} must not be changed", setting_name);
         else
             return false;
     }
@@ -299,7 +299,7 @@ bool SettingsConstraints::Checker::check(SettingChange & change, const Field & n
     if (!min_value.isNull() && !max_value.isNull() && less_or_cannot_compare(max_value, min_value))
     {
         if (reaction == THROW_ON_VIOLATION)
-            throw Exception(ErrorCodes::SETTING_CONSTRAINT_VIOLATION, "Setting {} should not be changed", setting_name);
+            throw Exception(ErrorCodes::SETTING_CONSTRAINT_VIOLATION, "Setting {} must not be changed", setting_name);
         else
             return false;
     }
@@ -308,7 +308,7 @@ bool SettingsConstraints::Checker::check(SettingChange & change, const Field & n
     {
         if (reaction == THROW_ON_VIOLATION)
         {
-            throw Exception(ErrorCodes::SETTING_CONSTRAINT_VIOLATION, "Setting {} shouldn't be less than {}",
+            throw Exception(ErrorCodes::SETTING_CONSTRAINT_VIOLATION, "Setting {} must not be less than {}",
                 setting_name, applyVisitor(FieldVisitorToString(), min_value));
         }
         else
@@ -319,7 +319,7 @@ bool SettingsConstraints::Checker::check(SettingChange & change, const Field & n
     {
         if (reaction == THROW_ON_VIOLATION)
         {
-            throw Exception(ErrorCodes::SETTING_CONSTRAINT_VIOLATION, "Setting {} shouldn't be greater than {}",
+            throw Exception(ErrorCodes::SETTING_CONSTRAINT_VIOLATION, "Setting {} must not be greater than {}",
                 setting_name, applyVisitor(FieldVisitorToString(), max_value));
         }
         else
