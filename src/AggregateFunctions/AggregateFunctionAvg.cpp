@@ -23,13 +23,7 @@ bool allowType(const DataTypePtr& type) noexcept
     return t.isInt()
         || t.isUInt()
         || t.isFloat()
-        || t.isDecimal()
-        || t.isDate()
-        || t.isDate32()
-        || t.isDateTime()
-        || t.isTime()
-        || t.isDateTime64()
-        || t.isTime64();
+        || t.isDecimal();
 }
 
 AggregateFunctionPtr createAggregateFunctionAvg(const std::string & name, const DataTypes & argument_types, const Array & parameters, const Settings *)
